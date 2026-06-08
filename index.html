@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#1B4D45">
+<title>SKALERA™ — Tu Ruta</title>
+<link rel="manifest" href="manifest.json">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-height:100vh}
+.screen{display:none;min-height:100vh;flex-direction:column}
+.screen.active{display:flex}
+/* LOGIN */
+.login-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center}
+.login-logo{font-size:28px;font-weight:700;color:#1B4D45;letter-spacing:1px;margin-bottom:4px}
+.login-sub{font-size:10px;color:#999;letter-spacing:2px;text-transform:uppercase;margin-bottom:32px}
+.login-h{font-size:22px;font-weight:700;color:#1B4D45;margin-bottom:8px}
+.login-p{font-size:14px;color:#4A4A4A;line-height:1.7;margin-bottom:24px}
+.inp{width:100%;border:.5px solid #D8D4CC;border-radius:7px;padding:12px 14px;font-size:14px;font-family:inherit;margin-bottom:10px;outline:none;max-width:380px}
+.inp:focus{border-color:#1B4D45}
+.btn-gold{background:#D4AF37;color:#000;border:none;padding:13px 22px;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;max-width:380px}
+.btn-teal{background:#1B4D45;color:#fff;border:none;padding:12px 22px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;width:100%;max-width:380px;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn-outline{background:transparent;border:1.5px solid #1B4D45;color:#1B4D45;padding:11px 20px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;width:100%}
+.msg{font-size:12px;color:#888;margin-top:10px;max-width:380px}
+/* NAV APP */
+.app-nav{background:#1B4D45;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.app-logo{font-size:16px;font-weight:700;color:#fff;letter-spacing:.8px}
+.app-user{font-size:11px;color:rgba(255,255,255,.6)}
+/* CONTENT */
+.app-body{flex:1;padding:20px 16px;overflow-y:auto}
+/* BOTTOM NAV */
+.bottom-nav{background:#fff;border-top:.5px solid #D8D4CC;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 0 4px}
+.bn-tab{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:9px;color:#888;cursor:pointer;padding:4px}
+.bn-tab.on{color:#1B4D45}
+.bn-icon{font-size:20px}
+/* CARDS */
+.card{background:#fff;border:.5px solid #D8D4CC;border-radius:10px;padding:14px;margin-bottom:12px}
+.card-title{font-size:13px;font-weight:600;color:#1B4D45;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.bx{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:500;white-space:nowrap}
+.bx-g{background:#E1F5EE;color:#085041}
+.bx-y{background:#FAEEDA;color:#633806}
+.bx-r{background:#FCEBEB;color:#791F1F}
+.bx-t{background:#E8F4F1;color:#1B4D45}
+.bx-gr{background:#F1EFE8;color:#5F5E5A}
+/* RUTA */
+.nivel-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:.5px solid #F1EFE8;font-size:13px}
+.nivel-row:last-child{border-bottom:none}
+.nivel-dot{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.nd-done{background:#E1F5EE;color:#085041}
+.nd-act{background:#1B4D45;color:#fff}
+.nd-lock{background:#F1EFE8;color:#888}
+.nivel-info{flex:1}
+.nivel-name{font-weight:500}
+.nivel-sub{font-size:10px;color:#888;margin-top:1px}
+.pb{height:3px;background:#F1EFE8;border-radius:999px;margin:6px 0 2px}
+.pb-f{height:100%;border-radius:999px;background:#1B4D45}
+/* SKALERÓMETRO RESULTADO */
+.skm-y{background:#FAEEDA;border:1px solid #EF9F27;border-radius:8px;padding:12px;margin-bottom:10px}
+.skm-r{background:#FCEBEB;border:1px solid #E24B4A;border-radius:8px;padding:12px;margin-bottom:10px}
+.skm-g{background:#E1F5EE;border:1px solid #5DCAA5;border-radius:8px;padding:12px;margin-bottom:10px}
+.skm-score{font-size:40px;font-weight:800;text-align:center;line-height:1}
+.skm-label{font-size:12px;font-weight:600;text-align:center;margin-top:3px;margin-bottom:8px}
+.skm-blocker{font-size:12px;line-height:1.55}
+/* ACTIVIDADES */
+.act-row{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:.5px solid #F1EFE8;font-size:12px}
+.act-row:last-child{border-bottom:none}
+.act-cb{width:18px;height:18px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.cb-ok{background:#2D6A4F;color:#fff;font-size:10px;font-weight:700}
+.cb-rev{background:#E6F1FB;border:.5px solid #90C0E0}
+.cb-pend{border:.5px solid #D8D4CC}
+.act-name{font-weight:500;flex:1}
+.act-sub{font-size:10px;color:#888;margin-top:1px}
+/* SOPORTE */
+.soporte-card{background:#E8F4F1;border-radius:10px;padding:16px;margin-bottom:12px}
+.soporte-title{font-size:13px;font-weight:600;color:#1B4D45;margin-bottom:4px}
+.soporte-sub{font-size:12px;color:#1B4D45;opacity:.7;margin-bottom:12px}
+.btn-wa{background:#25D366;color:#fff;border:none;padding:12px 18px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;width:100%;display:flex;align-items:center;justify-content:center;gap:8px}
+/* LOGROS */
+.logro-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:.5px solid #F1EFE8;font-size:12px}
+.logro-row:last-child{border-bottom:none}
+.logro-ico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.li-pu{background:#EEEDFE}
+.li-gr{background:#F1EFE8}
+.logro-name{font-weight:500;flex:1}
+.logro-sub{font-size:10px;color:#888;margin-top:1px}
+/* MENTORÍA */
+.mentor-card{background:#E8F4F1;border-radius:8px;padding:12px;margin-bottom:10px}
+.mentor-name{font-size:13px;font-weight:500;color:#1B4D45;margin-bottom:2px}
+.mentor-sub{font-size:11px;font-weight:500;color:#1B4D45;margin-bottom:10px}
+/* LEGAL */
+.legal-item{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:.5px solid #F1EFE8;font-size:13px;cursor:pointer}
+.legal-item:last-child{border-bottom:none}
+/* MAGIC LINK ENVIADO */
+.sent-ico{font-size:48px;margin-bottom:16px}
+</style>
+</head>
+<body>
+
+<!-- PANTALLA LOGIN -->
+<div class="screen active" id="screen-login">
+  <div class="login-wrap">
+    <div class="login-logo">SKALERA&#8482;</div>
+    <div class="login-sub">Palacios &amp; Lourido S.A.S.</div>
+    <div class="login-h">Accede a tu ruta</div>
+    <p class="login-p">Ingresa tu correo y te enviamos un enlace de acceso directo. Sin contraseña.</p>
+    <input class="inp" id="login-email" type="email" placeholder="Tu correo electrónico">
+    <button class="btn-gold" onclick="sendMagicLink()">Enviar enlace de acceso</button>
+    <p class="msg" id="login-msg"></p>
+  </div>
+</div>
+
+<!-- PANTALLA MAGIC LINK ENVIADO -->
+<div class="screen" id="screen-sent">
+  <div class="login-wrap">
+    <div class="sent-ico">📬</div>
+    <div class="login-h">Revisa tu correo</div>
+    <p class="login-p" id="sent-msg">Te enviamos un enlace de acceso. Haz clic en él para entrar a tu ruta.</p>
+    <p class="msg">¿No llegó? Revisa tu carpeta de spam.</p>
+    <button class="btn-outline" style="margin-top:16px;max-width:380px" onclick="showScreen('screen-login')">Volver</button>
+  </div>
+</div>
+
+<!-- PANTALLA APP PRINCIPAL -->
+<div class="screen" id="screen-app">
+  <div class="app-nav">
+    <div class="app-logo">SKALERA&#8482;</div>
+    <div class="app-user" id="app-user-email"></div>
+  </div>
+
+  <!-- TAB: TU RUTA -->
+  <div class="app-body" id="tab-ruta">
+    <div style="margin-bottom:12px">
+      <div style="font-size:14px;font-weight:500;color:#1B4D45" id="user-greeting">Hola</div>
+      <div style="font-size:11px;color:#888;margin-top:2px" id="user-biz"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Tu Ruta <span class="bx bx-t" id="ruta-pct">—</span></div>
+      <div class="pb"><div class="pb-f" id="ruta-bar" style="width:25%"></div></div>
+      <div id="niveles-list">
+        <div class="nivel-row">
+          <div class="nivel-dot nd-done">✓</div>
+          <div class="nivel-info"><div class="nivel-name">Diagnóstico inicial</div><div class="nivel-sub">Completado</div></div>
+          <span class="bx bx-g">✓</span>
+        </div>
+        <div class="nivel-row">
+          <div class="nivel-dot nd-act" style="font-size:10px;font-weight:700">2</div>
+          <div class="nivel-info"><div class="nivel-name" style="color:#1B4D45">Nivel 2 — Estructuración</div><div class="nivel-sub">En progreso</div></div>
+          <span class="bx bx-t">Activo</span>
+        </div>
+        <div class="nivel-row" onclick="showLockInfo()">
+          <div class="nivel-dot nd-lock">🔒</div>
+          <div class="nivel-info"><div class="nivel-name" style="color:#888">Nivel 3 — Ejecución</div><div class="nivel-sub">Completa el N2 primero</div></div>
+          <span class="bx bx-t">Activar Nivel</span>
+        </div>
+        <div class="nivel-row" onclick="showLockInfo()">
+          <div class="nivel-dot nd-lock">🔒</div>
+          <div class="nivel-info"><div class="nivel-name" style="color:#888">Nivel 4 — Escalamiento</div><div class="nivel-sub">Completa el N3 primero</div></div>
+          <span class="bx bx-t">Activar Nivel</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Tu Skalerómetro&#8482;</div>
+      <div id="skm-result-block">
+        <div style="font-size:12px;color:#888">Completa el diagnóstico para ver tu resultado.</div>
+      </div>
+    </div>
+    <div class="mentor-card">
+      <div class="mentor-name">Tu mentora Angela de la firma Palacios &amp; Lourido S.A.S.</div>
+      <div class="mentor-sub" id="mentor-expires">Mentoría incluida · 12 meses</div>
+      <button class="btn-outline" onclick="agendarMentoria()">Agendar sesión de mentoría</button>
+    </div>
+  </div>
+
+  <!-- TAB: ACTIVIDADES -->
+  <div class="app-body" id="tab-actividades" style="display:none">
+    <div class="card">
+      <div class="card-title">Actividades · Nivel 2</div>
+      <div class="act-row">
+        <div class="act-cb cb-ok">✓</div>
+        <div><div class="act-name">Definir cliente ideal</div><div class="act-sub">Evidencia aprobada ✓</div></div>
+        <span class="bx bx-g">✓</span>
+      </div>
+      <div class="act-row">
+        <div class="act-cb cb-rev"></div>
+        <div><div class="act-name">Propuesta de valor</div><div class="act-sub">En revisión</div></div>
+        <span class="bx" style="background:#FEF0E7;color:#8A4800">En revisión</span>
+      </div>
+      <div class="act-row">
+        <div class="act-cb cb-pend"></div>
+        <div><div class="act-name">Modelo de precio</div><div class="act-sub">Pendiente</div></div>
+        <span class="bx bx-gr">Pendiente</span>
+      </div>
+      <div class="act-row">
+        <div class="act-cb cb-pend"></div>
+        <div><div class="act-name">Proceso de venta</div><div class="act-sub">Pendiente</div></div>
+        <span class="bx bx-gr">Pendiente</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Tus logros</div>
+      <div class="logro-row">
+        <div class="logro-ico li-pu">🎓</div>
+        <div style="flex:1"><div class="logro-name">Certificado de participación</div><div class="logro-sub">Emitido · Descargable</div></div>
+        <span class="bx" style="background:#EEEDFE;color:#3C3489">PDF</span>
+      </div>
+      <div class="logro-row">
+        <div class="logro-ico li-gr">🎓</div>
+        <div style="flex:1"><div class="logro-name" style="color:#888">Certificado de implementación</div><div class="logro-sub">Disponible al completar el Nivel 2</div></div>
+        <span class="bx bx-gr">Pendiente</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: SOPORTE -->
+  <div class="app-body" id="tab-soporte" style="display:none">
+    <div class="soporte-card">
+      <div class="soporte-title">Soporte · Equipo SKALERA&#8482;</div>
+      <div class="soporte-sub">Escríbenos directamente. Te respondemos pronto.</div>
+      <button class="btn-wa" onclick="window.open('https://wa.me/573113053231','_blank')">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9.5" fill="rgba(255,255,255,.25)"/><path d="M14.5 12.3c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.5.1-.1.2-.6.8-.7 1-.1.1-.2.2-.4 0-.2-.1-1-.4-1.9-1.1-.7-.6-1.2-1.4-1.4-1.6-.1-.2 0-.3.1-.4l.3-.4c.1-.1.1-.2.2-.4 0-.1 0-.3-.1-.4-.1-.1-.5-1.2-.7-1.7-.2-.4-.4-.4-.5-.4h-.4c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 1.8s.8 2 .9 2.1c.1.1 1.5 2.4 3.7 3.2.5.2.9.4 1.2.5.5.1.9.1 1.3-.1.4-.2 1.1-.9 1.3-1.2.2-.3.2-.5 0-.6z" fill="white"/></svg>
+        Escribir al Equipo SKALERA
+      </button>
+    </div>
+    <div class="card">
+      <div class="card-title">Legal</div>
+      <div class="legal-item"><span>📄 Términos y Condiciones</span><span style="color:#888">›</span></div>
+      <div class="legal-item"><span>🔒 Política de Privacidad</span><span style="color:#888">›</span></div>
+      <div class="legal-item"><span>↩️ Retracto y Reembolsos</span><span style="color:#888">›</span></div>
+      <div class="legal-item" style="border-bottom:none"><span>🏢 PALACIOS &amp; LOURIDO S.A.S.</span><span style="font-size:10px;color:#888">Cali, Colombia</span></div>
+    </div>
+    <div style="text-align:center;margin-top:16px">
+      <button class="btn-outline" style="max-width:200px" onclick="logout()">Cerrar sesión</button>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="bn-tab on" id="bn-ruta" onclick="switchTab('ruta')"><div class="bn-icon">🗺️</div>Mi Ruta</div>
+    <div class="bn-tab" id="bn-actividades" onclick="switchTab('actividades')"><div class="bn-icon">✅</div>Actividades</div>
+    <div class="bn-tab" id="bn-soporte" onclick="switchTab('soporte')"><div class="bn-icon">💬</div>Soporte</div>
+    <div class="bn-tab" id="bn-perfil" onclick="switchTab('perfil')"><div class="bn-icon">👤</div>Perfil</div>
+  </div>
+</div>
+
+<!-- MODAL NIVEL BLOQUEADO -->
+<div id="lock-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;align-items:center;justify-content:center;padding:16px">
+  <div style="background:#fff;border-radius:12px;padding:22px;max-width:380px;width:100%;position:relative">
+    <button onclick="document.getElementById('lock-modal').style.display='none'" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:18px;color:#888;cursor:pointer">✕</button>
+    <div style="font-size:15px;font-weight:700;color:#1B4D45;margin-bottom:12px">Para activar este nivel necesitas:</div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#4A4A4A">
+      <div style="display:flex;gap:8px"><span style="color:#2D6A4F;font-weight:700;flex-shrink:0">01</span>Completar el Nivel 2 con todas las actividades aprobadas.</div>
+      <div style="display:flex;gap:8px"><span style="color:#2D6A4F;font-weight:700;flex-shrink:0">02</span>Realizar la sesión de mentoría incluida.</div>
+      <div style="display:flex;gap:8px"><span style="color:#2D6A4F;font-weight:700;flex-shrink:0">03</span>Obtener el certificado de implementación.</div>
+    </div>
+    <button onclick="document.getElementById('lock-modal').style.display='none'" style="width:100%;background:#D4AF37;color:#000;border:none;padding:11px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:16px">Entendido — seguir en el Nivel 2</button>
+  </div>
+</div>
+
+<script>
+const SUPA_URL = 'https://rxbjulgtleefldgmrnzi.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4Ymp1bGd0bGVlZmxkZ21ybnppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MzY4NTUsImV4cCI6MjA5NTQxMjg1NX0._kQsRSVYSokGDBBcwtLTD6vaVqsOF3-emfrspEVgn9Y';
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+async function sendMagicLink(){
+  const email = document.getElementById('login-email').value.trim();
+  if(!email){alert('Por favor ingresa tu correo.');return;}
+  const msg = document.getElementById('login-msg');
+  msg.textContent = 'Enviando...';
+  try{
+    const res = await fetch(`${SUPA_URL}/auth/v1/magiclink`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':SUPA_KEY},
+      body:JSON.stringify({email, options:{emailRedirectTo: window.location.href}})
+    });
+    if(res.ok){
+      document.getElementById('sent-msg').textContent = `Te enviamos un enlace a ${email}. Haz clic en él para entrar.`;
+      showScreen('screen-sent');
+    } else {
+      msg.textContent = 'Hubo un error. Intenta de nuevo.';
+    }
+  }catch(e){
+    msg.textContent = 'Error de conexión. Intenta de nuevo.';
+  }
+}
+
+async function checkSession(){
+  const hash = window.location.hash;
+  if(hash.includes('access_token')){
+    const params = new URLSearchParams(hash.substring(1));
+    const token = params.get('access_token');
+    if(token){
+      localStorage.setItem('skalera_token', token);
+      window.location.hash = '';
+      loadApp(token);
+      return;
+    }
+  }
+  const token = localStorage.getItem('skalera_token');
+  if(token){ loadApp(token); return; }
+  showScreen('screen-login');
+}
+
+async function loadApp(token){
+  try{
+    const res = await fetch(`${SUPA_URL}/auth/v1/user`,{
+      headers:{'apikey':SUPA_KEY,'Authorization':`Bearer ${token}`}
+    });
+    const user = await res.json();
+    if(user.email){
+      document.getElementById('app-user-email').textContent = user.email;
+      document.getElementById('user-greeting').textContent = 'Hola 👋';
+      loadLeadData(user.email, token);
+      showScreen('screen-app');
+    } else {
+      localStorage.removeItem('skalera_token');
+      showScreen('screen-login');
+    }
+  }catch(e){
+    showScreen('screen-login');
+  }
+}
+
+async function loadLeadData(email, token){
+  try{
+    const res = await fetch(`${SUPA_URL}/rest/v1/leads?email=eq.${encodeURIComponent(email)}&order=created_at.desc&limit=1`,{
+      headers:{'apikey':SUPA_KEY,'Authorization':`Bearer ${token}`}
+    });
+    const leads = await res.json();
+    if(leads && leads[0]){
+      const lead = leads[0];
+      if(lead.business_name) document.getElementById('user-biz').textContent = lead.business_name;
+      loadDiagnostic(lead.id, token);
+    }
+  }catch(e){}
+}
+
+async function loadDiagnostic(leadId, token){
+  try{
+    const res = await fetch(`${SUPA_URL}/rest/v1/diagnostics_initial?lead_id=eq.${leadId}&order=created_at.desc&limit=1`,{
+      headers:{'apikey':SUPA_KEY,'Authorization':`Bearer ${token}`}
+    });
+    const diags = await res.json();
+    if(diags && diags[0]){
+      const d = diags[0];
+      const score = d.score;
+      const sem = d.semaphore_color;
+      const blocker = d.main_blocker;
+      const semMap = {
+        red:{cls:'skm-r',ico:'🔴',label:'Estado 1 · Crítico · Sobrevivencia',col:'#791F1F'},
+        yellow:{cls:'skm-y',ico:'🟡',label:'Estado 2 · Estancado · Autoempleo',col:'#633806'},
+        green:{cls:'skm-g',ico:'🟢',label:'Estado 3 · Escalable · Arquitectura activa',col:'#085041'}
+      };
+      const s = semMap[sem] || semMap['yellow'];
+      document.getElementById('skm-result-block').innerHTML = `
+        <div class="${s.cls}">
+          <div class="skm-score" style="color:${s.col}">${score}</div>
+          <div class="skm-label" style="color:${s.col}">${s.ico} Skalerómetro™ · ${s.label}</div>
+          <div class="skm-blocker" style="color:${s.col}"><strong>Tu bloqueo:</strong> ${blocker}</div>
+        </div>`;
+    }
+  }catch(e){}
+}
+
+function switchTab(tab){
+  ['ruta','actividades','soporte'].forEach(t=>{
+    const el = document.getElementById('tab-'+t);
+    if(el) el.style.display = t===tab ? 'block' : 'none';
+  });
+  document.querySelectorAll('.bn-tab').forEach(b=>b.classList.remove('on'));
+  const bn = document.getElementById('bn-'+tab);
+  if(bn) bn.classList.add('on');
+}
+
+function showLockInfo(){
+  document.getElementById('lock-modal').style.display='flex';
+}
+
+function agendarMentoria(){
+  window.open('https://wa.me/573113053231?text=Hola,%20quiero%20agendar%20mi%20sesión%20de%20mentoría%20incluida%20en%20el%20Nivel%202','_blank');
+}
+
+function logout(){
+  localStorage.removeItem('skalera_token');
+  showScreen('screen-login');
+}
+
+checkSession();
+</script>
+</body>
+</html>
