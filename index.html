@@ -18,14 +18,13 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
 .inp{width:100%;border:.5px solid #D8D4CC;border-radius:7px;padding:12px 14px;font-size:14px;font-family:inherit;margin-bottom:10px;outline:none;max-width:380px}
 .inp:focus{border-color:#1B4D45}
 .btn-gold{background:#D4AF37;color:#000;border:none;padding:13px 22px;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;max-width:380px}
-.btn-teal{background:#1B4D45;color:#fff;border:none;padding:12px 22px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;width:100%;max-width:380px;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
 .btn-outline{background:transparent;border:1.5px solid #1B4D45;color:#1B4D45;padding:11px 20px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;width:100%}
 .msg{font-size:12px;color:#888;margin-top:10px;max-width:380px}
 .app-nav{background:#1B4D45;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
 .app-logo{font-size:16px;font-weight:700;color:#fff;letter-spacing:.8px}
 .app-user{font-size:11px;color:rgba(255,255,255,.6)}
-.app-body{flex:1;padding:20px 16px;overflow-y:auto}
-.bottom-nav{background:#fff;border-top:.5px solid #D8D4CC;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 0 4px}
+.app-body{flex:1;padding:20px 16px;overflow-y:auto;padding-bottom:90px}
+.bottom-nav{background:#fff;border-top:.5px solid #D8D4CC;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 0 4px;position:fixed;bottom:0;left:0;right:0}
 .bn-tab{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:9px;color:#888;cursor:pointer;padding:4px}
 .bn-tab.on{color:#1B4D45}
 .bn-icon{font-size:20px}
@@ -47,8 +46,8 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
 .nivel-info{flex:1}
 .nivel-name{font-weight:500}
 .nivel-sub{font-size:10px;color:#888;margin-top:1px}
-.pb{height:3px;background:#F1EFE8;border-radius:999px;margin:6px 0 2px}
-.pb-f{height:100%;border-radius:999px;background:#1B4D45}
+.pb{height:6px;background:#F1EFE8;border-radius:999px;margin:6px 0 2px;overflow:hidden}
+.pb-f{height:100%;border-radius:999px;background:linear-gradient(90deg,#1B4D45,#2D6A4F);transition:width .5s ease}
 .skm-y{background:#FAEEDA;border:1px solid #EF9F27;border-radius:8px;padding:12px;margin-bottom:10px}
 .skm-r{background:#FCEBEB;border:1px solid #E24B4A;border-radius:8px;padding:12px;margin-bottom:10px}
 .skm-g{background:#E1F5EE;border:1px solid #5DCAA5;border-radius:8px;padding:12px;margin-bottom:10px}
@@ -63,10 +62,11 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
 .cb-pend{border:.5px solid #D8D4CC}
 .act-name{font-weight:500;flex:1}
 .act-sub{font-size:10px;color:#888;margin-top:1px}
-.soporte-card{background:#E8F4F1;border-radius:10px;padding:16px;margin-bottom:12px}
+.soporte-card{background:#fff;border:.5px solid #D8D4CC;border-radius:10px;padding:16px;margin-bottom:12px;text-align:center}
 .soporte-title{font-size:13px;font-weight:600;color:#1B4D45;margin-bottom:4px}
-.soporte-sub{font-size:12px;color:#1B4D45;opacity:.7;margin-bottom:12px}
-.btn-wa{background:#25D366;color:#fff;border:none;padding:12px 18px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;width:100%;display:flex;align-items:center;justify-content:center;gap:8px}
+.soporte-sub{font-size:12px;color:#888;margin-bottom:14px}
+.btn-wa{background:#fff;color:#1B4D45;border:1.5px solid #25D366;padding:9px 22px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:8px;margin:0 auto}
+.btn-wa:hover{background:#F0FBF4}
 .logro-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:.5px solid #F1EFE8;font-size:12px}
 .logro-row:last-child{border-bottom:none}
 .logro-ico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
@@ -125,7 +125,6 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
       <div style="font-size:11px;color:#888;margin-top:2px" id="user-biz"></div>
     </div>
 
-    <!-- Banner para usuarios sin compra -->
     <div class="locked-banner" id="upsell-banner" style="display:none">
       <div class="locked-banner-title">🔓 Activa el Nivel 2 — Estructuración</div>
       <div class="locked-banner-sub">Acceso permanente + Mentoría 12 meses + Certificado de implementación</div>
@@ -133,7 +132,7 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
     </div>
 
     <div class="card">
-      <div class="card-title">Tu Ruta <span class="bx bx-t" id="ruta-pct">—</span></div>
+      <div class="card-title">Tu Ruta <span class="bx bx-t" id="ruta-pct">25%</span></div>
       <div class="pb"><div class="pb-f" id="ruta-bar" style="width:25%"></div></div>
       <div id="niveles-list">
         <div class="nivel-row">
@@ -143,7 +142,10 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
         </div>
         <div class="nivel-row" id="nivel2-row">
           <div class="nivel-dot nd-lock" id="nivel2-dot">🔒</div>
-          <div class="nivel-info"><div class="nivel-name" id="nivel2-name" style="color:#888">Nivel 2 — Estructuración</div><div class="nivel-sub" id="nivel2-sub">Activa tu acceso</div></div>
+          <div class="nivel-info">
+            <div class="nivel-name" id="nivel2-name" style="color:#888">Nivel 2 — Estructuración</div>
+            <div class="nivel-sub" id="nivel2-sub">Activa tu acceso</div>
+          </div>
           <span class="bx bx-go" id="nivel2-badge">Activar Nivel</span>
         </div>
         <div class="nivel-row" onclick="showLockInfo()">
@@ -158,12 +160,14 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
         </div>
       </div>
     </div>
+
     <div class="card">
       <div class="card-title">Tu Skalerómetro&#8482;</div>
       <div id="skm-result-block">
         <div style="font-size:12px;color:#888">Completa el diagnóstico para ver tu resultado.</div>
       </div>
     </div>
+
     <div class="mentor-card" id="mentor-card" style="display:none">
       <div class="mentor-name">Tu mentora Angela de la firma Palacios &amp; Lourido S.A.S.</div>
       <div class="mentor-sub">Mentoría incluida · 12 meses</div>
@@ -183,26 +187,26 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
     </div>
     <div id="actividades-unlocked" style="display:none">
       <div class="card">
-        <div class="card-title">Actividades · Nivel 2</div>
+        <div class="card-title">Actividades · Nivel 2 <span class="bx bx-t" id="act-progress-badge">0 de 4</span></div>
         <div class="act-row">
-          <div class="act-cb cb-pend"></div>
-          <div><div class="act-name">Definir cliente ideal</div><div class="act-sub">Pendiente</div></div>
-          <span class="bx bx-gr">Pendiente</span>
+          <div class="act-cb cb-pend" id="act-cb-1"></div>
+          <div><div class="act-name">Definir cliente ideal</div><div class="act-sub" id="act-sub-1">Pendiente</div></div>
+          <span class="bx bx-gr" id="act-badge-1">Pendiente</span>
         </div>
         <div class="act-row">
-          <div class="act-cb cb-pend"></div>
-          <div><div class="act-name">Propuesta de valor</div><div class="act-sub">Pendiente</div></div>
-          <span class="bx bx-gr">Pendiente</span>
+          <div class="act-cb cb-pend" id="act-cb-2"></div>
+          <div><div class="act-name">Propuesta de valor</div><div class="act-sub" id="act-sub-2">Pendiente</div></div>
+          <span class="bx bx-gr" id="act-badge-2">Pendiente</span>
         </div>
         <div class="act-row">
-          <div class="act-cb cb-pend"></div>
-          <div><div class="act-name">Modelo de precio</div><div class="act-sub">Pendiente</div></div>
-          <span class="bx bx-gr">Pendiente</span>
+          <div class="act-cb cb-pend" id="act-cb-3"></div>
+          <div><div class="act-name">Modelo de precio</div><div class="act-sub" id="act-sub-3">Pendiente</div></div>
+          <span class="bx bx-gr" id="act-badge-3">Pendiente</span>
         </div>
         <div class="act-row">
-          <div class="act-cb cb-pend"></div>
-          <div><div class="act-name">Proceso de venta</div><div class="act-sub">Pendiente</div></div>
-          <span class="bx bx-gr">Pendiente</span>
+          <div class="act-cb cb-pend" id="act-cb-4"></div>
+          <div><div class="act-name">Proceso de venta</div><div class="act-sub" id="act-sub-4">Pendiente</div></div>
+          <span class="bx bx-gr" id="act-badge-4">Pendiente</span>
         </div>
       </div>
       <div class="card">
@@ -227,7 +231,7 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
       <div class="soporte-title">Soporte · Equipo SKALERA&#8482;</div>
       <div class="soporte-sub">Escríbenos directamente. Te respondemos pronto.</div>
       <button class="btn-wa" onclick="window.open('https://wa.me/573113053231','_blank')">
-        <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9.5" fill="rgba(255,255,255,.25)"/><path d="M14.5 12.3c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.5.1-.1.2-.6.8-.7 1-.1.1-.2.2-.4 0-.2-.1-1-.4-1.9-1.1-.7-.6-1.2-1.4-1.4-1.6-.1-.2 0-.3.1-.4l.3-.4c.1-.1.1-.2.2-.4 0-.1 0-.3-.1-.4-.1-.1-.5-1.2-.7-1.7-.2-.4-.4-.4-.5-.4h-.4c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 1.8s.8 2 .9 2.1c.1.1 1.5 2.4 3.7 3.2.5.2.9.4 1.2.5.5.1.9.1 1.3-.1.4-.2 1.1-.9 1.3-1.2.2-.3.2-.5 0-.6z" fill="white"/></svg>
+        <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9.5" fill="#25D366"/><path d="M14.5 12.3c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.5.1-.1.2-.6.8-.7 1-.1.1-.2.2-.4 0-.2-.1-1-.4-1.9-1.1-.7-.6-1.2-1.4-1.4-1.6-.1-.2 0-.3.1-.4l.3-.4c.1-.1.1-.2.2-.4 0-.1 0-.3-.1-.4-.1-.1-.5-1.2-.7-1.7-.2-.4-.4-.4-.5-.4h-.4c-.1 0-.4.1-.6.3-.2.2-.8.8-.8 1.8s.8 2 .9 2.1c.1.1 1.5 2.4 3.7 3.2.5.2.9.4 1.2.5.5.1.9.1 1.3-.1.4-.2 1.1-.9 1.3-1.2.2-.3.2-.5 0-.6z" fill="white"/></svg>
         Escribir al Equipo SKALERA
       </button>
     </div>
@@ -268,6 +272,7 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
 <script>
 const SUPA_URL = 'https://rxbjulgtleefldgmrnzi.supabase.co';
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4Ymp1bGd0bGVlZmxkZ21ybnppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MzY4NTUsImV4cCI6MjA5NTQxMjg1NX0._kQsRSVYSokGDBBcwtLTD6vaVqsOF3-emfrspEVgn9Y';
+const ACT_KEYS = ['cliente_ideal','propuesta_valor','modelo_precio','proceso_venta'];
 
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -343,15 +348,32 @@ async function loadLeadData(email, token){
       const lead = leads[0];
       if(lead.business_name) document.getElementById('user-biz').textContent = lead.business_name;
       const isPurchased = lead.status === 'purchased';
-      updateNivel2State(isPurchased);
+      let approved = 0, actList = [];
+      if(isPurchased){
+        const data = await getApprovedCount(lead.id, token);
+        approved = data.approved;
+        actList = data.list;
+      }
+      updateNivel2State(isPurchased, approved, actList);
       loadDiagnostic(lead.id, token);
     } else {
-      updateNivel2State(false);
+      updateNivel2State(false, 0, []);
     }
   }catch(e){}
 }
 
-function updateNivel2State(isPurchased){
+async function getApprovedCount(leadId, token){
+  try{
+    const res = await fetch(`${SUPA_URL}/rest/v1/lead_activities?lead_id=eq.${leadId}`,{
+      headers:{'apikey':SUPA_KEY,'Authorization':`Bearer ${token}`}
+    });
+    const acts = await res.json();
+    if(!Array.isArray(acts)) return {approved:0, list:[]};
+    return {approved: acts.filter(a=>a.status==='approved').length, list: acts};
+  }catch(e){ return {approved:0, list:[]}; }
+}
+
+function updateNivel2State(isPurchased, approvedCount, actList){
   const banner = document.getElementById('upsell-banner');
   const dot = document.getElementById('nivel2-dot');
   const name = document.getElementById('nivel2-name');
@@ -371,14 +393,18 @@ function updateNivel2State(isPurchased){
     dot.style.fontWeight = '700';
     name.style.color = '#1B4D45';
     name.textContent = 'Nivel 2 — Estructuración';
-    sub.textContent = '0 de 4 actividades';
+    sub.textContent = approvedCount+' de 4 actividades';
     badge.className = 'bx bx-t';
     badge.textContent = 'Activo';
-    bar.style.width = '50%';
-    pct.textContent = '50%';
+    const base = 30;
+    const perAct = 17.5;
+    const total = Math.min(100, Math.round(base + approvedCount * perAct));
+    bar.style.width = total+'%';
+    pct.textContent = total+'%';
     mentorCard.style.display = 'block';
     lockedAct.style.display = 'none';
     unlockedAct.style.display = 'block';
+    renderActividades(approvedCount, actList);
   } else {
     banner.style.display = 'block';
     dot.className = 'nivel-dot nd-lock';
@@ -396,6 +422,39 @@ function updateNivel2State(isPurchased){
   }
 }
 
+function renderActividades(approvedCount, actList){
+  document.getElementById('act-progress-badge').textContent = approvedCount+' de 4';
+  for(let i=0;i<4;i++){
+    const key = ACT_KEYS[i];
+    const found = actList.find(a=>a.activity_key===key);
+    const status = found?.status || 'pending';
+    const cb = document.getElementById('act-cb-'+(i+1));
+    const sub = document.getElementById('act-sub-'+(i+1));
+    const badge = document.getElementById('act-badge-'+(i+1));
+    if(status==='approved'){
+      cb.className = 'act-cb cb-ok';
+      cb.textContent = '✓';
+      sub.textContent = 'Evidencia aprobada ✓';
+      badge.className = 'bx bx-g';
+      badge.textContent = '✓';
+    } else if(status==='review'){
+      cb.className = 'act-cb cb-rev';
+      cb.textContent = '';
+      sub.textContent = 'En revisión';
+      badge.className = 'bx';
+      badge.style.background = '#FEF0E7';
+      badge.style.color = '#8A4800';
+      badge.textContent = 'En revisión';
+    } else {
+      cb.className = 'act-cb cb-pend';
+      cb.textContent = '';
+      sub.textContent = 'Pendiente';
+      badge.className = 'bx bx-gr';
+      badge.textContent = 'Pendiente';
+    }
+  }
+}
+
 async function loadDiagnostic(leadId, token){
   try{
     const res = await fetch(`${SUPA_URL}/rest/v1/diagnostics_initial?lead_id=eq.${leadId}&order=created_at.desc&limit=1`,{
@@ -404,20 +463,17 @@ async function loadDiagnostic(leadId, token){
     const diags = await res.json();
     if(diags && diags[0]){
       const d = diags[0];
-      const score = d.score;
-      const sem = d.semaphore_color;
-      const blocker = d.main_blocker;
       const semMap = {
         red:{cls:'skm-r',ico:'🔴',label:'Estado 1 · Crítico · Sobrevivencia',col:'#791F1F'},
         yellow:{cls:'skm-y',ico:'🟡',label:'Estado 2 · Estancado · Autoempleo',col:'#633806'},
         green:{cls:'skm-g',ico:'🟢',label:'Estado 3 · Escalable · Arquitectura activa',col:'#085041'}
       };
-      const s = semMap[sem] || semMap['yellow'];
+      const s = semMap[d.semaphore_color] || semMap['yellow'];
       document.getElementById('skm-result-block').innerHTML = `
         <div class="${s.cls}">
-          <div class="skm-score" style="color:${s.col}">${score}</div>
+          <div class="skm-score" style="color:${s.col}">${d.score}</div>
           <div class="skm-label" style="color:${s.col}">${s.ico} Skalerómetro™ · ${s.label}</div>
-          <div class="skm-blocker" style="color:${s.col}"><strong>Tu bloqueo:</strong> ${blocker}</div>
+          <div class="skm-blocker" style="color:${s.col}"><strong>Tu bloqueo:</strong> ${d.main_blocker}</div>
         </div>`;
     }
   }catch(e){}
