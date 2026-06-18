@@ -37,8 +37,10 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
 .bx-t{background:#E8F4F1;color:#1B4D45}
 .bx-go{background:#FAF3DC;color:#8A6A00}
 .bx-gr{background:#F1EFE8;color:#5F5E5A}
+.bx-pu{background:#EEEDFE;color:#3C3489}
 .nivel-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:.5px solid #F1EFE8;font-size:13px}
 .nivel-row:last-child{border-bottom:none}
+.nivel-row.clickable{cursor:pointer}
 .nivel-dot{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
 .nd-done{background:#E1F5EE;color:#085041}
 .nd-act{background:#1B4D45;color:#fff}
@@ -83,6 +85,17 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
 .locked-banner{background:#6A1B3A;border-radius:8px;padding:14px;text-align:center;margin-bottom:12px}
 .locked-banner-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px}
 .locked-banner-sub{font-size:11px;color:rgba(255,255,255,.7);line-height:1.5;margin-bottom:10px}
+.level-card{background:#fff;border:.5px solid #D8D4CC;border-radius:10px;padding:16px;margin-bottom:12px}
+.level-card-title{font-size:14px;font-weight:700;color:#1B4D45;margin-bottom:2px}
+.level-card-sub{font-size:11px;color:#888;margin-bottom:10px}
+.level-card-price{font-size:22px;font-weight:800;color:#1F1F1F;margin-bottom:2px}
+.level-card-pricenote{font-size:10px;color:#888;margin-bottom:12px}
+.level-card-benefit{font-size:12px;color:#4A4A4A;line-height:1.6;margin-bottom:6px}
+.level-card-req{font-size:11px;color:#888;margin-top:10px;text-align:center}
+.vip-card{background:#fff;border:.5px solid #D8D4CC;border-radius:10px;padding:16px;margin-bottom:12px}
+.vip-title{font-size:13px;font-weight:700;color:#1B4D45;margin-bottom:2px}
+.vip-price{font-size:18px;font-weight:800;color:#1F1F1F;margin-bottom:8px}
+.vip-desc{font-size:12px;color:#4A4A4A;line-height:1.6;margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -140,7 +153,7 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
           <div class="nivel-info"><div class="nivel-name">Diagnóstico inicial</div><div class="nivel-sub">Completado</div></div>
           <span class="bx bx-g">✓</span>
         </div>
-        <div class="nivel-row" id="nivel2-row">
+        <div class="nivel-row clickable" id="nivel2-row" onclick="showLevelDetail(2)">
           <div class="nivel-dot nd-lock" id="nivel2-dot">🔒</div>
           <div class="nivel-info">
             <div class="nivel-name" id="nivel2-name" style="color:#888">Nivel 2 — Estructuración</div>
@@ -148,15 +161,21 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
           </div>
           <span class="bx bx-go" id="nivel2-badge">Activar Nivel</span>
         </div>
-        <div class="nivel-row" onclick="showLockInfo()">
-          <div class="nivel-dot nd-lock">🔒</div>
-          <div class="nivel-info"><div class="nivel-name" style="color:#888">Nivel 3 — Ejecución</div><div class="nivel-sub">Completa el N2 primero</div></div>
-          <span class="bx bx-t">Activar Nivel</span>
+        <div class="nivel-row clickable" id="nivel3-row" onclick="showLevelDetail(3)">
+          <div class="nivel-dot nd-lock" id="nivel3-dot">🔒</div>
+          <div class="nivel-info">
+            <div class="nivel-name" id="nivel3-name" style="color:#888">Nivel 3 — Ejecución</div>
+            <div class="nivel-sub" id="nivel3-sub">Completa el N2 primero</div>
+          </div>
+          <span class="bx bx-t" id="nivel3-badge">Activar Nivel</span>
         </div>
-        <div class="nivel-row" onclick="showLockInfo()">
-          <div class="nivel-dot nd-lock">🔒</div>
-          <div class="nivel-info"><div class="nivel-name" style="color:#888">Nivel 4 — Escalamiento</div><div class="nivel-sub">Completa el N3 primero</div></div>
-          <span class="bx bx-t">Activar Nivel</span>
+        <div class="nivel-row clickable" id="nivel4-row" onclick="showLevelDetail(4)">
+          <div class="nivel-dot nd-lock" id="nivel4-dot">🔒</div>
+          <div class="nivel-info">
+            <div class="nivel-name" id="nivel4-name" style="color:#888">Nivel 4 — Escalamiento</div>
+            <div class="nivel-sub" id="nivel4-sub">Completa el N3 primero</div>
+          </div>
+          <span class="bx bx-t" id="nivel4-badge">Activar Nivel</span>
         </div>
       </div>
     </div>
@@ -169,8 +188,8 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
     </div>
 
     <div class="mentor-card" id="mentor-card" style="display:none">
-      <div class="mentor-name">Tu mentora Angela de la firma Palacios &amp; Lourido S.A.S.</div>
-      <div class="mentor-sub">Mentoría incluida · 12 meses</div>
+      <div class="mentor-name" id="mentor-name">Tu mentora Angela de la firma Palacios &amp; Lourido S.A.S.</div>
+      <div class="mentor-sub" id="mentor-sub">Mentoría incluida · 12 meses</div>
       <button class="btn-outline" onclick="agendarMentoria()">Agendar sesión de mentoría</button>
     </div>
   </div>
@@ -185,43 +204,27 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
         <button class="btn-gold" onclick="window.open('https://wa.me/573113053231?text=Hola,%20quiero%20obtener%20el%20Método%20SKALERA%20Nivel%202%20-%20USD%2097','_blank')">Obtener Nivel 2 — USD 97 →</button>
       </div>
     </div>
-    <div id="actividades-unlocked" style="display:none">
-      <div class="card">
-        <div class="card-title">Actividades · Nivel 2 <span class="bx bx-t" id="act-progress-badge">0 de 4</span></div>
-        <div class="act-row">
-          <div class="act-cb cb-pend" id="act-cb-1"></div>
-          <div><div class="act-name">Definir cliente ideal</div><div class="act-sub" id="act-sub-1">Pendiente</div></div>
-          <span class="bx bx-gr" id="act-badge-1">Pendiente</span>
-        </div>
-        <div class="act-row">
-          <div class="act-cb cb-pend" id="act-cb-2"></div>
-          <div><div class="act-name">Propuesta de valor</div><div class="act-sub" id="act-sub-2">Pendiente</div></div>
-          <span class="bx bx-gr" id="act-badge-2">Pendiente</span>
-        </div>
-        <div class="act-row">
-          <div class="act-cb cb-pend" id="act-cb-3"></div>
-          <div><div class="act-name">Modelo de precio</div><div class="act-sub" id="act-sub-3">Pendiente</div></div>
-          <span class="bx bx-gr" id="act-badge-3">Pendiente</span>
-        </div>
-        <div class="act-row">
-          <div class="act-cb cb-pend" id="act-cb-4"></div>
-          <div><div class="act-name">Proceso de venta</div><div class="act-sub" id="act-sub-4">Pendiente</div></div>
-          <span class="bx bx-gr" id="act-badge-4">Pendiente</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">Tus logros</div>
-        <div class="logro-row">
-          <div class="logro-ico li-pu">🎓</div>
-          <div style="flex:1"><div class="logro-name">Certificado de participación</div><div class="logro-sub">Emitido · Descargable</div></div>
-          <span class="bx" style="background:#EEEDFE;color:#3C3489">PDF</span>
-        </div>
-        <div class="logro-row">
-          <div class="logro-ico li-gr">🎓</div>
-          <div style="flex:1"><div class="logro-name" style="color:#888">Certificado de implementación</div><div class="logro-sub">Disponible al completar el Nivel 2</div></div>
-          <span class="bx bx-gr">Pendiente</span>
-        </div>
-      </div>
+    <div id="actividades-unlocked" style="display:none"></div>
+    <div id="logros-block"></div>
+  </div>
+
+  <!-- TAB: ASESORÍAS -->
+  <div class="app-body" id="tab-asesorias" style="display:none">
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">Asesorías Personalizadas</div>
+      <div style="font-size:12px;color:#888;line-height:1.6">Disponibles para cualquier cliente, en cualquier momento de su recorrido. No forman parte de la ruta de niveles.</div>
+    </div>
+    <div class="vip-card">
+      <div class="vip-title">Asesoría Estratégica y Mentoría 1-a-1</div>
+      <div class="vip-price">USD 150 <span style="font-size:11px;color:#888;font-weight:400">/ sesión</span></div>
+      <div class="vip-desc">Sesión privada de consultoría de alta gama para resolver un bloqueo crítico inmediato. Incluye diagnóstico profundo del caso, hoja de ruta estratégica con pasos exactos y claridad en la toma de decisiones gerenciales. 100% remoto (WhatsApp/Zoom).</div>
+      <button class="btn-gold" style="max-width:none" onclick="window.open('https://wa.me/573113053231?text=Hola,%20quiero%20agendar%20una%20Asesor%C3%ADa%20Estrat%C3%A9gica%201-a-1%20-%20USD%20150','_blank')">Agendar Asesoría — USD 150 →</button>
+    </div>
+    <div class="vip-card">
+      <div class="vip-title">Intervención Operativa e Implementación VIP</div>
+      <div class="vip-price">USD 2.000 <span style="font-size:11px;color:#888;font-weight:400">base · cotización según proyecto</span></div>
+      <div class="vip-desc">Consultoría presencial a la medida: la firma diseña, valida y ejecuta el modelo operativo directamente en tus instalaciones. Incluye desplazamiento técnico, manuales \u201cllave en mano\u201d, capacitación directa del personal e intervención de los socios fundadores. Sujeto a viabilidad técnica y presupuestal.</div>
+      <button class="btn-outline" onclick="window.open('https://wa.me/573113053231?text=Hola,%20quiero%20cotizar%20la%20Implementaci%C3%B3n%20VIP%20In-House','_blank')">Solicitar cotización →</button>
     </div>
   </div>
 
@@ -250,29 +253,46 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
   <div class="bottom-nav">
     <div class="bn-tab on" id="bn-ruta" onclick="switchTab('ruta')"><div class="bn-icon">🗺️</div>Mi Ruta</div>
     <div class="bn-tab" id="bn-actividades" onclick="switchTab('actividades')"><div class="bn-icon">✅</div>Actividades</div>
+    <div class="bn-tab" id="bn-asesorias" onclick="switchTab('asesorias')"><div class="bn-icon">⭐</div>Asesorías</div>
     <div class="bn-tab" id="bn-soporte" onclick="switchTab('soporte')"><div class="bn-icon">💬</div>Soporte</div>
-    <div class="bn-tab" id="bn-perfil" onclick="switchTab('perfil')"><div class="bn-icon">👤</div>Perfil</div>
   </div>
 </div>
 
-<!-- MODAL NIVEL BLOQUEADO -->
-<div id="lock-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;align-items:center;justify-content:center;padding:16px">
-  <div style="background:#fff;border-radius:12px;padding:22px;max-width:380px;width:100%;position:relative">
-    <button onclick="document.getElementById('lock-modal').style.display='none'" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:18px;color:#888;cursor:pointer">✕</button>
-    <div style="font-size:15px;font-weight:700;color:#1B4D45;margin-bottom:12px">Para activar este nivel necesitas:</div>
-    <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#4A4A4A">
-      <div style="display:flex;gap:8px"><span style="color:#2D6A4F;font-weight:700;flex-shrink:0">01</span>Completar el Nivel 2 con todas las actividades aprobadas.</div>
-      <div style="display:flex;gap:8px"><span style="color:#2D6A4F;font-weight:700;flex-shrink:0">02</span>Realizar la sesión de mentoría incluida.</div>
-      <div style="display:flex;gap:8px"><span style="color:#2D6A4F;font-weight:700;flex-shrink:0">03</span>Obtener el certificado de implementación.</div>
-    </div>
-    <button onclick="document.getElementById('lock-modal').style.display='none'" style="width:100%;background:#D4AF37;color:#000;border:none;padding:11px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:16px">Entendido</button>
+<!-- MODAL DETALLE DE NIVEL -->
+<div id="level-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;align-items:center;justify-content:center;padding:16px">
+  <div style="background:#fff;border-radius:12px;padding:22px;max-width:400px;width:100%;max-height:85vh;overflow-y:auto;position:relative">
+    <button onclick="document.getElementById('level-modal').style.display='none'" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:18px;color:#888;cursor:pointer">✕</button>
+    <div id="level-modal-body"></div>
   </div>
 </div>
 
 <script>
 const SUPA_URL = 'https://rxbjulgtleefldgmrnzi.supabase.co';
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ4Ymp1bGd0bGVlZmxkZ21ybnppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MzY4NTUsImV4cCI6MjA5NTQxMjg1NX0._kQsRSVYSokGDBBcwtLTD6vaVqsOF3-emfrspEVgn9Y';
-const ACT_KEYS = ['cliente_ideal','propuesta_valor','modelo_precio','proceso_venta'];
+
+const ACTIVITIES_BY_LEVEL = {
+  2: [
+    {key:'cliente_ideal', name:'Definir cliente ideal'},
+    {key:'propuesta_valor', name:'Propuesta de valor'},
+    {key:'modelo_precio', name:'Modelo de precio'},
+    {key:'proceso_venta', name:'Proceso de venta'}
+  ],
+  3: [
+    {key:'manual_funciones', name:'Crear manual de funciones'},
+    {key:'cronograma_apertura', name:'Diseñar cronograma de apertura/cierre'},
+    {key:'politicas_personal', name:'Estructurar políticas de personal'},
+    {key:'auditoria_flujos', name:'Implementar auditoría de flujos de caja'}
+  ],
+  4: [
+    {key:'junta_directiva', name:'Estructurar junta directiva'},
+    {key:'dashboards', name:'Crear dashboards predictivos'},
+    {key:'auditoria_pi', name:'Auditoría de propiedad intelectual'},
+    {key:'expansion_multisede', name:'Plan de expansión multisede'}
+  ]
+};
+
+let CURRENT_LEAD = null;
+let CURRENT_ACTS = [];
 
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -327,6 +347,7 @@ async function loadApp(token){
     if(user.email){
       document.getElementById('app-user-email').textContent = user.email;
       document.getElementById('user-greeting').textContent = 'Hola 👋';
+      window.CURRENT_TOKEN = token;
       loadLeadData(user.email, token);
       showScreen('screen-app');
     } else {
@@ -338,6 +359,13 @@ async function loadApp(token){
   }
 }
 
+function levelFromStatus(status){
+  if(status==='level4_purchased') return 4;
+  if(status==='level3_purchased') return 3;
+  if(status==='purchased') return 2;
+  return 0;
+}
+
 async function loadLeadData(email, token){
   try{
     const res = await fetch(`${SUPA_URL}/rest/v1/leads?email=eq.${encodeURIComponent(email)}&order=created_at.desc&limit=1`,{
@@ -346,113 +374,252 @@ async function loadLeadData(email, token){
     const leads = await res.json();
     if(leads && leads[0]){
       const lead = leads[0];
+      CURRENT_LEAD = lead;
       if(lead.business_name) document.getElementById('user-biz').textContent = lead.business_name;
-      const isPurchased = lead.status === 'purchased';
-      let approved = 0, actList = [];
-      if(isPurchased){
-        const data = await getApprovedCount(lead.id, token);
-        approved = data.approved;
-        actList = data.list;
+      const currentLevel = levelFromStatus(lead.status);
+      let actList = [];
+      if(currentLevel > 0){
+        actList = await getActivities(lead.id, token);
       }
-      updateNivel2State(isPurchased, approved, actList);
+      CURRENT_ACTS = actList;
+      updateRoute(currentLevel, actList);
       loadDiagnostic(lead.id, token);
     } else {
-      updateNivel2State(false, 0, []);
+      updateRoute(0, []);
     }
   }catch(e){}
 }
 
-async function getApprovedCount(leadId, token){
+async function getActivities(leadId, token){
   try{
     const res = await fetch(`${SUPA_URL}/rest/v1/lead_activities?lead_id=eq.${leadId}`,{
       headers:{'apikey':SUPA_KEY,'Authorization':`Bearer ${token}`}
     });
     const acts = await res.json();
-    if(!Array.isArray(acts)) return {approved:0, list:[]};
-    return {approved: acts.filter(a=>a.status==='approved').length, list: acts};
-  }catch(e){ return {approved:0, list:[]}; }
+    return Array.isArray(acts) ? acts : [];
+  }catch(e){ return []; }
 }
 
-function updateNivel2State(isPurchased, approvedCount, actList){
+function approvedCountForLevel(actList, level){
+  return actList.filter(a=>a.level===level && a.status==='approved').length;
+}
+
+function levelComplete(actList, level){
+  return approvedCountForLevel(actList, level) === 4;
+}
+
+function updateRoute(currentLevel, actList){
   const banner = document.getElementById('upsell-banner');
-  const dot = document.getElementById('nivel2-dot');
-  const name = document.getElementById('nivel2-name');
-  const sub = document.getElementById('nivel2-sub');
-  const badge = document.getElementById('nivel2-badge');
+  const mentorCard = document.getElementById('mentor-card');
   const bar = document.getElementById('ruta-bar');
   const pct = document.getElementById('ruta-pct');
-  const mentorCard = document.getElementById('mentor-card');
-  const lockedAct = document.getElementById('actividades-locked');
-  const unlockedAct = document.getElementById('actividades-unlocked');
 
-  if(isPurchased){
-    banner.style.display = 'none';
-    dot.className = 'nivel-dot nd-act';
-    dot.textContent = '2';
-    dot.style.fontSize = '10px';
-    dot.style.fontWeight = '700';
-    name.style.color = '#1B4D45';
-    name.textContent = 'Nivel 2 — Estructuración';
-    sub.textContent = approvedCount+' de 4 actividades';
-    badge.className = 'bx bx-t';
-    badge.textContent = 'Activo';
-    const base = 30;
-    const perAct = 17.5;
-    const total = Math.min(100, Math.round(base + approvedCount * perAct));
-    bar.style.width = total+'%';
-    pct.textContent = total+'%';
-    mentorCard.style.display = 'block';
-    lockedAct.style.display = 'none';
-    unlockedAct.style.display = 'block';
-    renderActividades(approvedCount, actList);
+  banner.style.display = currentLevel===0 ? 'block' : 'none';
+
+  // NIVEL 2
+  setNivelRowState(2, currentLevel, actList, currentLevel>=1);
+  // NIVEL 3 — requiere Nivel 2 completo (4/4 aprobadas)
+  const n2Complete = currentLevel>=2 && levelComplete(actList,2);
+  setNivelRowState(3, currentLevel, actList, currentLevel>=2, n2Complete ? null : 'Completa el N2 primero');
+  // NIVEL 4 — requiere Nivel 3 completo (4/4 aprobadas)
+  const n3Complete = currentLevel>=3 && levelComplete(actList,3);
+  setNivelRowState(4, currentLevel, actList, currentLevel>=3, n3Complete ? null : 'Completa el N3 primero');
+
+  // Barra de progreso global, basada en el nivel más alto activo
+  let total = 25;
+  if(currentLevel>=2){
+    const approved = approvedCountForLevel(actList,2);
+    total = 30 + approved*17.5;
+  }
+  if(currentLevel>=3){
+    const approved = approvedCountForLevel(actList,3);
+    total = 30 + 17.5*4; // nivel 2 completo
+    total = Math.max(total, 30) ; // base
+    total = 100; // nivel2 ya completo por definición de avance a nivel 3
+    total = 30 + approved*17.5; // reinicia conteo visual por nivel activo actual (nivel 3)
+  }
+  if(currentLevel>=4){
+    const approved = approvedCountForLevel(actList,4);
+    total = 30 + approved*17.5;
+  }
+  total = Math.min(100, Math.max(25, Math.round(total)));
+  bar.style.width = total+'%';
+  pct.textContent = total+'%';
+
+  // Tarjeta de mentoría / soporte según nivel activo más alto
+  if(currentLevel===2){
+    mentorCard.style.display='block';
+    document.getElementById('mentor-name').textContent = 'Tu mentora Angela de la firma Palacios & Lourido S.A.S.';
+    document.getElementById('mentor-sub').textContent = 'Mentoría incluida · 12 meses';
+  } else if(currentLevel===3){
+    mentorCard.style.display='block';
+    document.getElementById('mentor-name').textContent = 'Soporte técnico especializado · Nivel 3';
+    document.getElementById('mentor-sub').textContent = 'Chat interno con atención prioritaria';
+  } else if(currentLevel===4){
+    mentorCard.style.display='block';
+    document.getElementById('mentor-name').textContent = 'Consultoría con socios fundadores · Nivel 4';
+    document.getElementById('mentor-sub').textContent = 'Palacios & Lourido S.A.S. — acompañamiento directo';
   } else {
-    banner.style.display = 'block';
-    dot.className = 'nivel-dot nd-lock';
-    dot.textContent = '🔒';
-    name.style.color = '#888';
-    name.textContent = 'Nivel 2 — Estructuración';
-    sub.textContent = 'Activa tu acceso';
-    badge.className = 'bx bx-go';
-    badge.textContent = 'Activar Nivel';
-    bar.style.width = '25%';
-    pct.textContent = '25%';
-    mentorCard.style.display = 'none';
-    lockedAct.style.display = 'block';
-    unlockedAct.style.display = 'none';
+    mentorCard.style.display='none';
+  }
+
+  renderActividadesTab(currentLevel, actList);
+}
+
+function setNivelRowState(level, currentLevel, actList, isUnlockedToBuy, customLockedMsg){
+  const dot = document.getElementById('nivel'+level+'-dot');
+  const name = document.getElementById('nivel'+level+'-name');
+  const sub = document.getElementById('nivel'+level+'-sub');
+  const badge = document.getElementById('nivel'+level+'-badge');
+  const names = {2:'Nivel 2 — Estructuración',3:'Nivel 3 — Ejecución',4:'Nivel 4 — Escalamiento'};
+  const prices = {2:'USD 97',3:'USD 397',4:'USD 1.200'};
+
+  const isActive = currentLevel===level;
+  const isPastLevel = currentLevel>level;
+
+  if(isActive){
+    dot.className='nivel-dot nd-act';
+    dot.textContent=String(level);
+    dot.style.fontSize='10px'; dot.style.fontWeight='700';
+    name.style.color='#1B4D45';
+    name.textContent=names[level];
+    sub.textContent=approvedCountForLevel(actList,level)+' de 4 actividades';
+    badge.className='bx bx-t';
+    badge.textContent='Activo';
+  } else if(isPastLevel){
+    dot.className='nivel-dot nd-done';
+    dot.textContent='✓';
+    name.style.color='#1F1F1F';
+    name.textContent=names[level];
+    sub.textContent='Completado';
+    badge.className='bx bx-g';
+    badge.textContent='✓';
+  } else if(isUnlockedToBuy){
+    dot.className='nivel-dot nd-lock';
+    dot.textContent='🔒';
+    name.style.color='#888';
+    name.textContent=names[level];
+    sub.textContent='Activa tu acceso · '+prices[level];
+    badge.className='bx bx-go';
+    badge.textContent='Activar Nivel';
+  } else {
+    dot.className='nivel-dot nd-lock';
+    dot.textContent='🔒';
+    name.style.color='#888';
+    name.textContent=names[level];
+    sub.textContent=customLockedMsg || ('Completa el nivel anterior');
+    badge.className='bx bx-t';
+    badge.textContent='Activar Nivel';
   }
 }
 
-function renderActividades(approvedCount, actList){
-  document.getElementById('act-progress-badge').textContent = approvedCount+' de 4';
-  for(let i=0;i<4;i++){
-    const key = ACT_KEYS[i];
-    const found = actList.find(a=>a.activity_key===key);
-    const status = found?.status || 'pending';
-    const cb = document.getElementById('act-cb-'+(i+1));
-    const sub = document.getElementById('act-sub-'+(i+1));
-    const badge = document.getElementById('act-badge-'+(i+1));
-    if(status==='approved'){
-      cb.className = 'act-cb cb-ok';
-      cb.textContent = '✓';
-      sub.textContent = 'Evidencia aprobada ✓';
-      badge.className = 'bx bx-g';
-      badge.textContent = '✓';
-    } else if(status==='review'){
-      cb.className = 'act-cb cb-rev';
-      cb.textContent = '';
-      sub.textContent = 'En revisión';
-      badge.className = 'bx';
-      badge.style.background = '#FEF0E7';
-      badge.style.color = '#8A4800';
-      badge.textContent = 'En revisión';
-    } else {
-      cb.className = 'act-cb cb-pend';
-      cb.textContent = '';
-      sub.textContent = 'Pendiente';
-      badge.className = 'bx bx-gr';
-      badge.textContent = 'Pendiente';
+function renderActividadesTab(currentLevel, actList){
+  const lockedEl = document.getElementById('actividades-locked');
+  const unlockedEl = document.getElementById('actividades-unlocked');
+  const logrosEl = document.getElementById('logros-block');
+
+  if(currentLevel===0){
+    lockedEl.style.display='block';
+    unlockedEl.style.display='none';
+    logrosEl.innerHTML='';
+    return;
+  }
+  lockedEl.style.display='none';
+  unlockedEl.style.display='block';
+
+  let html = '';
+  const names = {2:'Nivel 2 — Estructuración',3:'Nivel 3 — Ejecución',4:'Nivel 4 — Escalamiento'};
+  for(const lvl of [2,3,4]){
+    if(currentLevel>=lvl){
+      const approved = approvedCountForLevel(actList,lvl);
+      html += `<div class="card"><div class="card-title">Actividades · ${names[lvl]} <span class="bx bx-t">${approved} de 4</span></div>`;
+      for(const act of ACTIVITIES_BY_LEVEL[lvl]){
+        const found = actList.find(a=>a.activity_key===act.key && a.level===lvl);
+        const status = found?.status || 'pending';
+        html += renderActRow(act.name, status);
+      }
+      html += `</div>`;
     }
   }
+  unlockedEl.innerHTML = html;
+
+  // Logros: certificado de participación siempre, certificado de implementación por cada nivel activo/completo
+  let logrosHtml = `<div class="card"><div class="card-title">Tus logros</div>
+    <div class="logro-row">
+      <div class="logro-ico li-pu">🎓</div>
+      <div style="flex:1"><div class="logro-name">Certificado de participación</div><div class="logro-sub">Emitido · Descargable</div></div>
+      <span class="bx" style="background:#EEEDFE;color:#3C3489">PDF</span>
+    </div>`;
+  for(const lvl of [2,3,4]){
+    if(currentLevel>=lvl){
+      const complete = levelComplete(actList,lvl);
+      logrosHtml += `
+        <div class="logro-row">
+          <div class="logro-ico ${complete?'li-pu':'li-gr'}">🎓</div>
+          <div style="flex:1"><div class="logro-name" style="${complete?'':'color:#888'}">Certificado de implementación · Nivel ${lvl}</div><div class="logro-sub">${complete?'Emitido · Descargable':'Disponible al completar el Nivel '+lvl}</div></div>
+          <span class="bx ${complete?'':'bx-gr'}" style="${complete?'background:#EEEDFE;color:#3C3489':''}">${complete?'PDF':'Pendiente'}</span>
+        </div>`;
+    }
+  }
+  logrosHtml += `</div>`;
+  logrosEl.innerHTML = logrosHtml;
+}
+
+function renderActRow(name, status){
+  if(status==='approved'){
+    return `<div class="act-row"><div class="act-cb cb-ok">✓</div><div><div class="act-name">${name}</div><div class="act-sub">Evidencia aprobada ✓</div></div><span class="bx bx-g">✓</span></div>`;
+  } else if(status==='review'){
+    return `<div class="act-row"><div class="act-cb cb-rev"></div><div><div class="act-name">${name}</div><div class="act-sub">En revisión</div></div><span class="bx" style="background:#FEF0E7;color:#8A4800">En revisión</span></div>`;
+  }
+  return `<div class="act-row"><div class="act-cb cb-pend"></div><div><div class="act-name">${name}</div><div class="act-sub">Pendiente</div></div><span class="bx bx-gr">Pendiente</span></div>`;
+}
+
+function showLevelDetail(level){
+  const currentLevel = levelFromStatus(CURRENT_LEAD?.status);
+  const body = document.getElementById('level-modal-body');
+
+  if(level===2){
+    body.innerHTML = `
+      <div class="level-card-title">Nivel 2 — Estructuración</div>
+      <div class="level-card-sub">Arquitectura de Negocio</div>
+      <div class="level-card-price">USD 97</div>
+      <div class="level-card-pricenote">Pago único · Sin mensualidades</div>
+      <div class="level-card-benefit">✓ Acceso permanente al contenido del Nivel 2</div>
+      <div class="level-card-benefit">✓ Mentoría incluida por 12 meses</div>
+      <div class="level-card-benefit">✓ Certificado de implementación al completar</div>
+      ${currentLevel<2?`<button class="btn-gold" style="max-width:none;margin-top:10px" onclick="window.open('https://wa.me/573113053231?text=Hola,%20quiero%20obtener%20el%20Método%20SKALERA%20Nivel%202%20-%20USD%2097','_blank')">Obtener Nivel 2 — USD 97 →</button>`:`<div class="level-card-req">✓ Nivel ya activo</div>`}
+    `;
+  } else if(level===3){
+    const canBuy = currentLevel===2 && levelComplete(CURRENT_ACTS,2);
+    body.innerHTML = `
+      <div class="level-card-title">Nivel 3 — Ejecución (Etapa 3)</div>
+      <div class="level-card-sub">Modelos de Operación y Personal</div>
+      <div class="level-card-price">USD 397</div>
+      <div class="level-card-pricenote">Pago único · Sin mensualidades</div>
+      <div class="level-card-benefit">✓ Estandarización de Procesos: manuales de funciones, cronogramas y políticas de personal</div>
+      <div class="level-card-benefit">✓ Canales de Adquisición: sistema predecible de atracción de clientes</div>
+      <div class="level-card-benefit">✓ Auditoría Operativa: flujos de caja, contratos base y métricas de personal</div>
+      <div class="level-card-benefit">✓ Soporte Técnico Especializado: chat interno con prioridad</div>
+      ${currentLevel>=3?`<div class="level-card-req">✓ Nivel ya activo</div>`:
+        canBuy?`<button class="btn-gold" style="max-width:none;margin-top:10px" onclick="window.open('https://wa.me/573113053231?text=Hola,%20quiero%20obtener%20el%20Método%20SKALERA%20Nivel%203%20-%20USD%20397','_blank')">Obtener Nivel 3 — USD 397 →</button>`:
+        `<div class="level-card-req">🔒 Requiere completar Etapa 2 (4 actividades, certificado y mentoría)</div>`}
+    `;
+  } else if(level===4){
+    const canBuy = currentLevel===3 && levelComplete(CURRENT_ACTS,3);
+    body.innerHTML = `
+      <div class="level-card-title">Nivel 4 — Escalamiento (Etapa 4)</div>
+      <div class="level-card-sub">Empresa Delegable y Licenciable</div>
+      <div class="level-card-price">USD 1.200</div>
+      <div class="level-card-pricenote">Pago único · Sin mensualidades</div>
+      <div class="level-card-benefit">✓ Estrategia de Delegación: juntas directivas, dashboards predictivos y KPIs</div>
+      <div class="level-card-benefit">✓ Protección y Crecimiento: auditoría de propiedad intelectual, franquicia y expansión multisede</div>
+      <div class="level-card-benefit">✓ Consultoría de Alta Firma: acompañamiento directo con socios fundadores</div>
+      ${currentLevel>=4?`<div class="level-card-req">✓ Nivel ya activo</div>`:
+        canBuy?`<button class="btn-gold" style="max-width:none;margin-top:10px" onclick="window.open('https://wa.me/573113053231?text=Hola,%20quiero%20obtener%20el%20Método%20SKALERA%20Nivel%204%20-%20USD%201,200','_blank')">Obtener Nivel 4 — USD 1.200 →</button>`:
+        `<div class="level-card-req">🔒 Requiere completar Etapa 3 (4 actividades y certificado)</div>`}
+    `;
+  }
+  document.getElementById('level-modal').style.display='flex';
 }
 
 async function loadDiagnostic(leadId, token){
@@ -480,7 +647,7 @@ async function loadDiagnostic(leadId, token){
 }
 
 function switchTab(tab){
-  ['ruta','actividades','soporte'].forEach(t=>{
+  ['ruta','actividades','asesorias','soporte'].forEach(t=>{
     const el = document.getElementById('tab-'+t);
     if(el) el.style.display = t===tab ? 'block' : 'none';
   });
@@ -489,18 +656,20 @@ function switchTab(tab){
   if(bn) bn.classList.add('on');
 }
 
-function showLockInfo(){
-  document.getElementById('lock-modal').style.display='flex';
-}
-
 function agendarMentoria(){
-  window.open('https://wa.me/573113053231?text=Hola,%20quiero%20agendar%20mi%20sesión%20de%20mentoría%20incluida%20en%20el%20Nivel%202','_blank');
+  const currentLevel = levelFromStatus(CURRENT_LEAD?.status);
+  let msg = 'Hola, quiero agendar mi sesión de mentoría incluida en el Nivel 2';
+  if(currentLevel===3) msg = 'Hola, necesito soporte técnico prioritario del Nivel 3';
+  if(currentLevel===4) msg = 'Hola, quiero agendar mi consultoría con socios fundadores del Nivel 4';
+  window.open('https://wa.me/573113053231?text='+encodeURIComponent(msg),'_blank');
 }
 
 function logout(){
   localStorage.removeItem('skalera_token');
   showScreen('screen-login');
 }
+
+document.getElementById('level-modal').addEventListener('click',function(e){if(e.target===this)this.style.display='none';});
 
 checkSession();
 </script>
