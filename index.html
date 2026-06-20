@@ -85,7 +85,6 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
 .locked-banner{background:#6A1B3A;border-radius:8px;padding:14px;text-align:center;margin-bottom:12px}
 .locked-banner-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px}
 .locked-banner-sub{font-size:11px;color:rgba(255,255,255,.7);line-height:1.5;margin-bottom:10px}
-.level-card{background:#fff;border:.5px solid #D8D4CC;border-radius:10px;padding:16px;margin-bottom:12px}
 .level-card-title{font-size:14px;font-weight:700;color:#1B4D45;margin-bottom:2px}
 .level-card-sub{font-size:11px;color:#888;margin-bottom:10px}
 .level-card-price{font-size:22px;font-weight:800;color:#1F1F1F;margin-bottom:2px}
@@ -223,7 +222,7 @@ body{font-family:system-ui,sans-serif;background:#F4F1EC;color:#1F1F1F;min-heigh
     <div class="vip-card">
       <div class="vip-title">Intervención Operativa e Implementación VIP</div>
       <div class="vip-price">USD 2.000 <span style="font-size:11px;color:#888;font-weight:400">base · cotización según proyecto</span></div>
-      <div class="vip-desc">Consultoría presencial a la medida: la firma diseña, valida y ejecuta el modelo operativo directamente en tus instalaciones. Incluye desplazamiento técnico, manuales \u201cllave en mano\u201d, capacitación directa del personal e intervención de los socios fundadores. Sujeto a viabilidad técnica y presupuestal.</div>
+      <div class="vip-desc">Consultoría presencial a la medida: la firma diseña, valida y ejecuta el modelo operativo directamente en tus instalaciones. Incluye desplazamiento técnico, manuales "llave en mano", capacitación directa del personal e intervención de los socios fundadores. Sujeto a viabilidad técnica y presupuestal.</div>
       <button class="btn-outline" onclick="window.open('https://wa.me/573113053231?text=Hola,%20quiero%20cotizar%20la%20Implementaci%C3%B3n%20VIP%20In-House','_blank')">Solicitar cotización →</button>
     </div>
   </div>
@@ -347,7 +346,6 @@ async function loadApp(token){
     if(user.email){
       document.getElementById('app-user-email').textContent = user.email;
       document.getElementById('user-greeting').textContent = 'Hola 👋';
-      window.CURRENT_TOKEN = token;
       loadLeadData(user.email, token);
       showScreen('screen-app');
     } else {
@@ -425,26 +423,16 @@ function updateRoute(currentLevel, actList){
   const n3Complete = currentLevel>=3 && levelComplete(actList,3);
   setNivelRowState(4, currentLevel, actList, currentLevel>=3, n3Complete ? null : 'Completa el N3 primero');
 
-  // Barra de progreso global, basada en el nivel más alto activo
+  // Barra de progreso: refleja el avance del nivel actualmente activo
+  // 25% = solo diagnóstico · 30% = nivel recién activado · +17.5% por cada actividad aprobada de ese nivel
   let total = 25;
-  if(currentLevel>=2){
-    const approved = approvedCountForLevel(actList,2);
-    total = 30 + approved*17.5;
-  }
-  if(currentLevel>=3){
-    const approved = approvedCountForLevel(actList,3);
-    total = 30 + 17.5*4; // nivel 2 completo
-    total = Math.max(total, 30) ; // base
-    total = 100; // nivel2 ya completo por definición de avance a nivel 3
-    total = 30 + approved*17.5; // reinicia conteo visual por nivel activo actual (nivel 3)
-  }
-  if(currentLevel>=4){
-    const approved = approvedCountForLevel(actList,4);
-    total = 30 + approved*17.5;
+  if(currentLevel >= 2){
+    const approved = approvedCountForLevel(actList, currentLevel);
+    total = 30 + approved * 17.5;
   }
   total = Math.min(100, Math.max(25, Math.round(total)));
-  bar.style.width = total+'%';
-  pct.textContent = total+'%';
+  bar.style.width = total + '%';
+  pct.textContent = total + '%';
 
   // Tarjeta de mentoría / soporte según nivel activo más alto
   if(currentLevel===2){
@@ -543,7 +531,6 @@ function renderActividadesTab(currentLevel, actList){
   }
   unlockedEl.innerHTML = html;
 
-  // Logros: certificado de participación siempre, certificado de implementación por cada nivel activo/completo
   let logrosHtml = `<div class="card"><div class="card-title">Tus logros</div>
     <div class="logro-row">
       <div class="logro-ico li-pu">🎓</div>
